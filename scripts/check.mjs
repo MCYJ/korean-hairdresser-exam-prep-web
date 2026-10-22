@@ -24,7 +24,9 @@ for(const file of files){
 for(const path of ["index.html","404.html","sitemap.xml","robots.txt",".nojekyll","ko/index.html","en/index.html"])try{await access(join(out,path))}catch{fail.push(`missing ${path}`)}
 if(files.length!==36)fail.push(`expected 36 HTML, found ${files.length}`);
 const combined=(await Promise.all(files.map((file)=>readFile(file,"utf8")))).join("\n");
-for(const required of ["app.mcyj.examprep.kor0187","App Store 출시 예정","App Store coming soon","2022–2026 specification"])if(!combined.includes(required))fail.push(`missing ${required}`);
+for(const required of ["app.mcyj.examprep.kor0187.pro","App Store 공개 미확인","App Store availability unconfirmed","2022–2026 specification"])if(!combined.includes(required))fail.push(`missing ${required}`);
+if(/https:\/\/play\.google\.com\/store\/apps\/details\?id=app\.mcyj\.examprep\.kor0187(?:["&<\s]|$)/.test(combined))fail.push("legacy Play download link found");
+for(const locale of ["ko","en"]){const h=await readFile(join(out,locale,"index.html"),"utf8");if(!h.includes(locale==="ko"?"₩14,500":"KRW 14,500"))fail.push(`missing verified Korean-storefront price ${locale}`);}
 if(combined.includes("apps.apple.com"))fail.push("unverified App Store URL found");
 if(/\b(?:KRW|USD)\s?9,900|₩9,900/.test(combined))fail.push("subscription price claim found");
 for(const stale of ["한식조리기능사","조리작업","한 접시","공개과제 기반","6797324369"])if(combined.includes(stale))fail.push(`stale copied exam content found: ${stale}`);

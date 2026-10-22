@@ -1,6 +1,6 @@
 # 미용사(일반) 필기·실기 웹사이트
 
-출시된 RushLabs `KOR-0187` 앱을 위한 독립 한국어·영어 홍보·학습 사이트입니다.
+Google Play에 공개된 RushLabs의 별도 Android Pro 앱을 위한 독립 한국어·영어 홍보·학습 사이트입니다.
 
 - Production: https://mcyj.github.io/korean-hairdresser-exam-prep-web/
 - 정적 생성 결과: `dist/`
